@@ -2,19 +2,20 @@
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StyleSheet, View, Text, TextInput, TouchableOpacity, Alert, FlatList, Modal, Image } from "react-native";
 import { useState, useEffect } from "react";
-import { Task, FilterType } from "../types/Task";
+import { Product, FilterType } from "../types/Product";
 import { saveTasks, loadTasks } from "../service/storage";
 import AntDesign from '@expo/vector-icons/AntDesign';
+import Feather from '@expo/vector-icons/Feather';
 
 export default function Home() {
-  const [tasks, setTasks] = useState<Task[]>([]);
+  const [tasks, setTasks] = useState<Product[]>([]);
   const [newTitle, setNewTitle] = useState<string>("");
   const [newQtd, setNewQtd] = useState<number | string>("");
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [filter, setFilter] = useState<FilterType>('todas');
 
   // Estados para o Modal de Edição
-  const [editingTask, setEditingTask] = useState<Task | null>(null);
+  const [editingTask, setEditingTask] = useState<Product | null>(null);
   const [editTitle, setEditTitle] = useState<string>('');
   const [editQtd, setEditQtd] = useState<number | string>("");
 
@@ -38,7 +39,7 @@ export default function Home() {
     }
   }
 
-  const generateId = (tasks: Task[]) => {
+  const generateId = (tasks: Product[]) => {
     const nextId = tasks.length === 0 ? 1 : Math.max(...tasks.map(task => Number(task.id))) + 1;
 
     return String(nextId).padStart(3, "0");
@@ -55,7 +56,7 @@ export default function Home() {
         return;
     }
 
-    const newTask: Task = {
+    const newTask: Product = {
       id: generateId(tasks),
       title: newTitle.trim(),
       qtd: Number(newQtd),
@@ -76,7 +77,7 @@ export default function Home() {
 
   }
 
-  const handleOpenEditModal = (task: Task) => {
+  const handleOpenEditModal = (task: Product) => {
     setEditingTask(task);
     setEditTitle(task.title);
     setEditQtd(task.qtd)
@@ -564,7 +565,7 @@ filterContainer: {
   },
   cardCompleted: {
     backgroundColor: '#F8FAFC',
-    borderLeftColor: '#10B981',
+    borderLeftColor: '#7343DB',
     opacity: 0.85,
   },
   checkbox: {
@@ -578,8 +579,8 @@ filterContainer: {
     marginRight: 12,
   },
   checkboxChecked: {
-    backgroundColor: '#10B981',
-    borderColor: '#10B981',
+    backgroundColor: '#7343DB',
+    borderColor: '#7343DB',
   },
   checkmark: {
     color: '#FFFFFF',

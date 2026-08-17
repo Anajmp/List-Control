@@ -1,4 +1,4 @@
-export interface Task{
+export interface Product{
     id: string;
     title: string;
     qtd: number;
